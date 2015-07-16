@@ -64,7 +64,7 @@ class Applegate_Events_CPT {
 			'query_var'          => true,
 			'menu_icon'          => 'dashicons-' . $this->icon,
 			'rewrite' => array(
-				'slug' => 'faqs',
+				'slug' => 'events',
 			),
 			'capability_type'    => 'post',
 			'has_archive'        => true,
