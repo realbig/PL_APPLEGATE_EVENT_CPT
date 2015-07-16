@@ -58,13 +58,13 @@ class Applegate_Events_CPT {
 
 		$args = array(
 			'labels'             => $labels,
-			'public' => true,
+			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
 			'menu_icon'          => 'dashicons-' . $this->icon,
-			'rewrite' => array(
+			'rewrite'            => array(
 				'slug' => 'events',
 			),
 			'capability_type'    => 'post',
@@ -124,6 +124,14 @@ class Applegate_Events_CPT {
 			'event',
 			'side'
 		);
+
+		add_meta_box(
+			'location-of-event',
+			'Location of Event',
+			array( $this, '_location_of_event_mb' ),
+			'event',
+			'side'
+		);
 	}
 
 	function _date_of_event_mb( $post ) {
@@ -135,7 +143,7 @@ class Applegate_Events_CPT {
 		<p>
 			<label>
 				<span class="screen-reader-text">Choose a date</span>
-				<input type="text" name="_event_date" id="_event_date" class="widefat" value="<?php echo $date; ?>" />
+				<input type="text" name="_event_date" id="_event_date" class="widefat" value="<?php echo $date; ?>"/>
 			</label>
 		</p>
 		<script type="text/javascript">
@@ -143,6 +151,20 @@ class Applegate_Events_CPT {
 				jQuery('#_event_date').datepicker();
 			});
 		</script>
+		<?php
+	}
+
+	function _location_of_event_mb( $post ) {
+
+		$location = get_post_meta( $post->ID, '_event_location', true );
+		?>
+		<p>
+			<label>
+				<span class="screen-reader-text">Choose a location</span>
+				<textarea name="_event_location" id="_event_location" class="widefat" rows="5"
+					><?php echo $location; ?></textarea>
+			</label>
+		</p>
 		<?php
 	}
 
