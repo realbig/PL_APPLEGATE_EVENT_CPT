@@ -58,6 +58,7 @@ class Applegate_Events_CPT {
 
 		$args = array(
 			'labels'             => $labels,
+			'public' => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => true,
