@@ -19,7 +19,10 @@ class Applegate_Events_CPT {
 	private $label_plural = 'Events';
 	private $icon = 'calendar';
 
-	private $meta_fields = array();
+	private $meta_fields = array(
+		'_event_date',
+		'_event_location',
+	);
 
 	function __construct() {
 
@@ -111,15 +114,45 @@ class Applegate_Events_CPT {
 	}
 
 	function _add_meta_boxes() {
+
+		add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_admin_scripts' ) );
+
+		add_meta_box(
+			'date-of-event',
+			'Date of Event',
+			array( $this, '_date_of_event_mb' ),
+			'event',
+			'side'
+		);
+	}
+
+	function _date_of_event_mb( $post ) {
+
+		wp_nonce_field( __FILE__, 'event_meta_nonce_save' );
+
+		$date = get_post_meta( $post->ID, '_event_date', true );
+		?>
+		<p>
+			<label>
+				<span class="screen-reader-text">Choose a date</span>
+				<input type="text" name="_event_date" id="_event_date" class="widefat" value="<?php echo $date; ?>" />
+			</label>
+		</p>
+		<script type="text/javascript">
+			jQuery(function () {
+				jQuery('#_event_date').datepicker();
+			});
+		</script>
+		<?php
 	}
 
 	function _save_meta( $post_ID ) {
 
-		if ( ! isset( $_POST['slide_image_nonce_save'] ) ) {
+		if ( ! isset( $_POST['event_meta_nonce_save'] ) ) {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( $_POST['slide_image_nonce_save'], 'slide_image_nonce' ) ) {
+		if ( ! wp_verify_nonce( $_POST['event_meta_nonce_save'], __FILE__ ) ) {
 			return;
 		}
 
@@ -139,5 +172,18 @@ class Applegate_Events_CPT {
 
 			update_post_meta( $post_ID, $field, $_POST[ $field ] );
 		}
+	}
+
+	function _enqueue_admin_scripts() {
+
+		global $wp_scripts;
+
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
+		$version = $wp_scripts->registered['jquery-ui-core']->ver;
+		wp_enqueue_style(
+			"jquery-ui-css",
+			"http://ajax.googleapis.com/ajax/libs/jqueryui/$version/themes/ui-lightness/jquery-ui.min.css"
+		);
 	}
 }
