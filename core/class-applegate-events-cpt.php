@@ -4,8 +4,8 @@
  *
  * @since      0.1.0
  *
- * @package    MyTheme
- * @subpackage MyTheme/core
+ * @package    ApplegateEvents
+ * @subpackage ApplegateEvents/core
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

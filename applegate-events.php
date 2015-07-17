@@ -4,7 +4,7 @@
  * Description: Creates the "Event" custom post type.
  * Author: Joel Worsham
  * Author URI: http://realbigmarketing.com
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'APPLEGATE_EVENTS_VERSION', '1.0.0' );
+define( 'APPLEGATE_EVENTS_VERSION', '1.0.1' );
 define( 'APPLEGATE_EVENTS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'APPLEGATE_EVENTS_URL', plugins_url( '', __FILE__ ) );
 
