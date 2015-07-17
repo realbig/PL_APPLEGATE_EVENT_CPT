@@ -67,6 +67,7 @@ class Applegate_Events_CPT {
 			'rewrite'            => array(
 				'slug' => 'events',
 			),
+			'menu_position' => 58,
 			'capability_type'    => 'post',
 			'has_archive'        => true,
 			'hierarchical'       => false,
